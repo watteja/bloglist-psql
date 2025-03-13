@@ -9,7 +9,7 @@ To establish database connection with data persisted in a bind mount volume `db_
 ```
 docker run \
   --name bloglist-psql \
-  -e POSTGRES_PASSWORD=pass_from_env_file \
+  -e POSTGRES_PASSWORD=PASS_FROM_ENV_FILE \
   -e PGDATA=/var/lib/postgresql/data/pgdata \
   -v ./db_data:/var/lib/postgresql/data \
   -p 5432:5432
@@ -17,4 +17,7 @@ docker run \
 ```
 
 To access psql console while the container is running:
-`docker exec -it container_id psql -U postgres postgres`
+`docker exec -it CONTAINER_ID psql -U postgres postgres`
+
+To restart a stopped container:
+`docker container start CONTAINER_ID`
