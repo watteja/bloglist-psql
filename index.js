@@ -4,6 +4,7 @@ const app = express();
 const { PORT } = require("./util/config");
 const { connectToDatabase } = require("./util/db");
 
+require("express-async-errors");
 const blogsRouter = require("./controllers/blogs");
 
 // parse incoming JSON data

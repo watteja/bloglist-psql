@@ -7,13 +7,9 @@ router.get("/", async (_req, res) => {
   res.json(blogs);
 });
 
-router.post("/", async (req, res, next) => {
-  try {
-    const blog = await Blog.create(req.body);
-    res.json(blog);
-  } catch (error) {
-    next(error);
-  }
+router.post("/", async (req, res) => {
+  const blog = await Blog.create(req.body);
+  res.json(blog);
 });
 
 const blogFinder = async (req, _res, next) => {
@@ -29,18 +25,14 @@ router.delete("/:id", blogFinder, async (req, res) => {
   res.status(204).end();
 });
 
-router.put("/:id", blogFinder, async (req, res, next) => {
-  try {
-    if (!req.blog) {
-      throw new Error("NotFoundError");
-    }
-
-    req.blog.likes = req.body.likes;
-    await req.blog.save();
-    res.json(req.blog);
-  } catch (error) {
-    next(error);
+router.put("/:id", blogFinder, async (req, res) => {
+  if (!req.blog) {
+    throw new Error("NotFoundError");
   }
+
+  req.blog.likes = req.body.likes;
+  await req.blog.save();
+  res.json(req.blog);
 });
 
 module.exports = router;
