@@ -1,0 +1,10 @@
+GET http://localhost:3001/api/users
+
+###
+
+PUT http://localhost:3001/api/users/john
+Content-Type: application/json
+
+{
+  "newUsername": "john@example.com"
+}

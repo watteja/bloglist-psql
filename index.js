@@ -6,11 +6,15 @@ const { connectToDatabase } = require("./util/db");
 
 require("express-async-errors");
 const blogsRouter = require("./controllers/blogs");
+const usersRouter = require("./controllers/users");
+// const loginRouter = require("./controllers/login");
 
 // parse incoming JSON data
 app.use(express.json());
 
 app.use("/api/blogs", blogsRouter);
+app.use("/api/users", usersRouter);
+// app.use("/api/login", loginRouter);
 
 const errorHandler = (error, _req, res, next) => {
   console.error(error.message);
