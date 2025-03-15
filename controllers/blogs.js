@@ -6,10 +6,16 @@ const { Blog, User } = require("../models");
 const { SECRET } = require("../util/config");
 
 router.get("/", async (req, res) => {
-  const where = {};
+  let where = {};
 
-  if (req.query.search) {
-    where.title = { [Op.substring]: req.query.search };
+  let keyword = req.query.search;
+  if (keyword) {
+    where = {
+      [Op.or]: [
+        { title: { [Op.iLike]: `%${keyword}%` } },
+        { author: { [Op.iLike]: `%${keyword}%` } },
+      ],
+    };
   }
 
   const blogs = await Blog.findAll({
