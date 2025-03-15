@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const router = require("express").Router();
 
-const { User } = require("../models");
+const { User, Blog } = require("../models");
 
 // listing all users
 router.get("/", async (_req, res) => {
