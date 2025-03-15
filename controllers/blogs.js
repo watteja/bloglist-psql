@@ -5,7 +5,13 @@ const { Blog, User } = require("../models");
 const { SECRET } = require("../util/config");
 
 router.get("/", async (_req, res) => {
-  const blogs = await Blog.findAll();
+  const blogs = await Blog.findAll({
+    attributes: { exclude: ["userId"] },
+    include: {
+      model: User,
+      attributes: ["name"],
+    },
+  });
   res.json(blogs);
 });
 
