@@ -9,14 +9,14 @@ router.get("/", async (_req, res) => {
   res.json(blogs);
 });
 
-const tokenExtractor = (req, res, next) => {
+const tokenExtractor = (req, _res, next) => {
   const authorization = req.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     console.log(authorization.substring(7));
     console.log(SECRET);
     req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
   } else {
-    throw new Error("UnauthorizedError");
+    throw new Error("MissingTokenError");
   }
 
   next();
@@ -33,8 +33,12 @@ const blogFinder = async (req, _res, next) => {
   next();
 };
 
-router.delete("/:id", blogFinder, async (req, res) => {
+router.delete("/:id", [blogFinder, tokenExtractor], async (req, res) => {
   if (req.blog) {
+    const user = await User.findByPk(req.decodedToken.id);
+    if (req.blog.userId !== user.id) {
+      throw new Error("UnauthorizedError");
+    }
     console.log(`Deleting blog ${JSON.stringify(req.blog, null, 2)}`);
     await req.blog.destroy();
   }

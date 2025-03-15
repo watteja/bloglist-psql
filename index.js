@@ -23,10 +23,12 @@ const errorHandler = (error, _req, res, next) => {
     return res.status(400).json({ error: error.errors[0].message });
   } else if (error.message === "NotFoundError") {
     return res.status(404).json({ error: "Blog not found" });
-  } else if (error.message === "UnauthorizedError") {
+  } else if (error.message === "MissingTokenError") {
     return res.status(401).json({ error: "token missing" });
   } else if (error.name === "JsonWebTokenError") {
     return res.status(401).json({ error: "token invalid" });
+  } else if (error.message === "UnauthorizedError") {
+    return res.status(401).json({ error: "unauthorized" });
   }
 
   next(error);
