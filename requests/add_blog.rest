@@ -4,10 +4,11 @@ GET http://localhost:3001/api/blogs
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5AZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzQyMDMzMzM4fQ.PRsHCQ26nkyD5cjKT2sz861PWQttA3i2H1m52WjVEWc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5AZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzQyMTIwNDM1fQ.x2otwksAmfkhpEKpYHYRgjD3NFQ94lxyiqZ1iX81BDw
 
 {
-  "title": "The first blog",
-  "url": "example.com/first",
-  "author": "Scribbles"
+  "title": "5 ways to make your code more readable",
+  "url": "example.com/reader-friendly-0245882",
+  "author": "Lizzy McBlogsalot",
+  "likes": 22
 }
