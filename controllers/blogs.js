@@ -44,6 +44,17 @@ const tokenExtractor = (req, _res, next) => {
 };
 
 router.post("/", tokenExtractor, async (req, res) => {
+  // check that the year written is valid if present
+  if (req.body.year) {
+    if (
+      isNaN(req.body.year) ||
+      req.body.year < 1991 ||
+      req.body.year > new Date().getFullYear()
+    ) {
+      throw new Error("InvalidYearError");
+    }
+  }
+
   const user = await User.findByPk(req.decodedToken.id);
   const blog = await Blog.create({ ...req.body, userId: user.id });
   res.json(blog);

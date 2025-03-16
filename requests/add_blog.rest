@@ -4,11 +4,25 @@ GET http://localhost:3001/api/blogs
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5AZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzQyMTIwNDM1fQ.x2otwksAmfkhpEKpYHYRgjD3NFQ94lxyiqZ1iX81BDw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5AZXhhbXBsZS5jb20iLCJpZCI6MSwiaWF0IjoxNzQyMTU3NTQwfQ.R77fkixO2YQYGiuAtcQqVZQctXgdN0VCsY0lbeMnvqg
+
+# {
+#   "title": "This is a random title",
+#   "url": "https://www.example.com/clever-blogpost",
+#   "author": "John Doe",
+#   "likes": 18
+# }
+
+# {
+#   "title": "5 ways to make your code more readable",
+#   "url": "example.com/reader-friendly-0245882",
+#   "author": "Lizzy McBlogsalot",
+#   "likes": 22
+# }
 
 {
-  "title": "5 ways to make your code more readable",
-  "url": "example.com/reader-friendly-0245882",
-  "author": "Lizzy McBlogsalot",
-  "likes": 22
+  "title": "The third example blog",
+  "url": "example.com/numero-tres",
+  "author": "Scribbles",
+  "year": 2001
 }

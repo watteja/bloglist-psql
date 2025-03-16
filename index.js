@@ -31,6 +31,12 @@ const errorHandler = (error, _req, res, next) => {
     return res.status(401).json({ error: "token invalid" });
   } else if (error.message === "UnauthorizedError") {
     return res.status(401).json({ error: "unauthorized" });
+  } else if (error.message === "InvalidYearError") {
+    return res
+      .status(400)
+      .json({
+        error: "year must be a number between 1991 and the current year",
+      });
   }
 
   next(error);
