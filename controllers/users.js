@@ -14,6 +14,21 @@ router.get("/", async (_req, res) => {
   res.json(users);
 });
 
+// displaying a single user
+router.get("/:id", async (req, res) => {
+  const user = await User.findByPk(req.params.id, {
+    attributes: ["name", "username"],
+    include: {
+      model: Blog,
+      as: "readings",
+      attributes: ["id", "url", "title", "author", "likes", "year"],
+      through: { attributes: [] },
+    },
+  });
+
+  res.json(user);
+});
+
 // adding a new user
 router.post("/", async (req, res) => {
   const { username, name, password } = req.body;
@@ -40,6 +55,9 @@ router.put("/:username", async (req, res) => {
       username,
     },
   });
+  if (!user) {
+    throw new Error("UserNotFoundError");
+  }
   user.username = newUsername;
   await user.save();
 

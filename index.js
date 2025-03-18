@@ -9,6 +9,7 @@ const blogsRouter = require("./controllers/blogs");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const authorsRouter = require("./controllers/authors");
+const readingListsRouter = require("./controllers/readinglists");
 
 // parse incoming JSON data
 app.use(express.json());
@@ -17,13 +18,14 @@ app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/authors", authorsRouter);
+app.use("/api/readinglists", readingListsRouter);
 
 const errorHandler = (error, _req, res, next) => {
   console.error(error.message);
 
   if (error.name === "SequelizeValidationError") {
     return res.status(400).json({ error: error.errors[0].message });
-  } else if (error.message === "NotFoundError") {
+  } else if (error.message === "BlogNotFoundError") {
     return res.status(404).json({ error: "Blog not found" });
   } else if (error.message === "MissingTokenError") {
     return res.status(401).json({ error: "token missing" });
@@ -35,6 +37,8 @@ const errorHandler = (error, _req, res, next) => {
     return res.status(400).json({
       error: "Year must be a number between 1991 and the current year",
     });
+  } else if (error.message === "UserNotFoundError") {
+    return res.status(404).json({ error: "User not found" });
   }
 
   next(error);

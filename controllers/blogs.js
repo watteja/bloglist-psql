@@ -79,7 +79,7 @@ router.delete("/:id", [blogFinder, tokenExtractor], async (req, res) => {
 
 router.put("/:id", blogFinder, async (req, res) => {
   if (!req.blog) {
-    throw new Error("NotFoundError");
+    throw new Error("BlogNotFoundError");
   }
 
   req.blog.likes = req.body.likes;
