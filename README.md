@@ -22,4 +22,4 @@ To access psql console while the container is running:
 To restart a stopped container:
 `docker container start CONTAINER_ID`
 
-Run the server itself with `node index.js`
+Run the server itself with `npm run dev`

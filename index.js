@@ -10,6 +10,7 @@ const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
 const authorsRouter = require("./controllers/authors");
 const readingListsRouter = require("./controllers/readinglists");
+const logoutRouter = require("./controllers/logout");
 
 // parse incoming JSON data
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/authors", authorsRouter);
 app.use("/api/readinglists", readingListsRouter);
+app.use("/api/logout", logoutRouter);
 
 const errorHandler = (error, _req, res, next) => {
   console.error(error.message);
@@ -41,6 +43,8 @@ const errorHandler = (error, _req, res, next) => {
     return res.status(404).json({ error: "User not found" });
   } else if (error.message === "ReadingListNotFoundError") {
     return res.status(404).json({ error: "Reading list not found" });
+  } else if (error.message === "SessionError") {
+    return res.status(401).json({ error: "Not logged in" });
   }
 
   next(error);

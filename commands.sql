@@ -14,3 +14,6 @@ INSERT INTO blogs (author, url, title, likes) VALUES ('Lizzy McBlogsalot', 'exam
 INSERT INTO reading_lists (user_id, blog_id) VALUES (1, 1);
 INSERT INTO reading_lists (user_id, blog_id) VALUES (1, 2);
 INSERT INTO reading_lists (user_id, blog_id) VALUES (2, 2);
+
+-- Disable user
+UPDATE users SET disabled = true WHERE id = 1;
