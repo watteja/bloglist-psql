@@ -22,7 +22,9 @@ router.get("/:id", async (req, res) => {
       model: Blog,
       as: "readings",
       attributes: ["id", "url", "title", "author", "likes", "year"],
-      through: { attributes: [] },
+      // With 'attributes: []' we would specify that we don't want to include
+      // any attributes from the join/connection table.
+      through: { attributes: ["read", "id"] },
     },
   });
 
