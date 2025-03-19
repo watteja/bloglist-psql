@@ -16,6 +16,14 @@ router.get("/", async (_req, res) => {
 
 // displaying a single user
 router.get("/:id", async (req, res) => {
+  const readingListWhere = {};
+
+  console.log("req.query.read", req.query.read);
+
+  if (req.query.read === "true" || req.query.read === "false") {
+    readingListWhere.read = req.query.read;
+  }
+
   const user = await User.findByPk(req.params.id, {
     attributes: ["name", "username"],
     include: {
@@ -24,7 +32,7 @@ router.get("/:id", async (req, res) => {
       attributes: ["id", "url", "title", "author", "likes", "year"],
       // With 'attributes: []' we would specify that we don't want to include
       // any attributes from the join/connection table.
-      through: { attributes: ["read", "id"] },
+      through: { attributes: ["read", "id"], where: readingListWhere },
     },
   });
 
