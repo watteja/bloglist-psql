@@ -39,6 +39,8 @@ const errorHandler = (error, _req, res, next) => {
     });
   } else if (error.message === "UserNotFoundError") {
     return res.status(404).json({ error: "User not found" });
+  } else if (error.message === "ReadingListNotFoundError") {
+    return res.status(404).json({ error: "Reading list not found" });
   }
 
   next(error);

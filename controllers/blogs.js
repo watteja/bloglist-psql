@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 
+const { tokenExtractor } = require("../util/middleware");
 const { Blog, User } = require("../models");
-const { SECRET } = require("../util/config");
 
 router.get("/", async (req, res) => {
   let where = {};
@@ -29,19 +28,6 @@ router.get("/", async (req, res) => {
   });
   res.json(blogs);
 });
-
-const tokenExtractor = (req, _res, next) => {
-  const authorization = req.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    console.log(authorization.substring(7));
-    console.log(SECRET);
-    req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
-  } else {
-    throw new Error("MissingTokenError");
-  }
-
-  next();
-};
 
 router.post("/", tokenExtractor, async (req, res) => {
   // check that the year written is valid if present
